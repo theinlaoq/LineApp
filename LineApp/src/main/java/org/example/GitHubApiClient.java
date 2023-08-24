@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 public class GitHubApiClient {
+    //YOUR-TOKEN - personal access token in gh
     private String ownerName;
     private String ownerRepos;
     private HttpClient httpClient = HttpClient.newHttpClient();
@@ -21,6 +22,7 @@ public class GitHubApiClient {
         this.ownerRepos = ownerRepos;
     }
 
+    //get request to repository
     public String getRepo() {
         String apiUrl = GITHUB_API_URL + ownerName + "/" + ownerRepos;
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -41,6 +43,7 @@ public class GitHubApiClient {
         }
     }
 
+    //get request to repository/issues
     public String getRepoIssue() {
         String apiUrl = GITHUB_API_URL + ownerName + "/" + ownerRepos + ISSUES;
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -62,6 +65,7 @@ public class GitHubApiClient {
 
     }
 
+    //get request to repository/pulls
     public String getRepoPulls() {
         String apiUrl = GITHUB_API_URL + ownerName + "/" + ownerRepos + PULLS;
         HttpRequest httpRequest = HttpRequest.newBuilder()
