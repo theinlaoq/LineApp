@@ -1,4 +1,7 @@
 package org.example;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.example.utils.Json;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -22,7 +25,7 @@ public class GitHubApiClient {
     }
 
     //get request to repository
-    public String getRepo() {
+    public JsonNode getRepo() {
         String apiUrl = GITHUB_API_URL + ownerName + "/" + ownerRepos;
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))
@@ -35,7 +38,7 @@ public class GitHubApiClient {
         try {
             HttpResponse<String> response = httpClient.send(httpRequest,
                     HttpResponse.BodyHandlers.ofString());
-            return response.body();
+            return Json.parse(response.body());
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -43,7 +46,7 @@ public class GitHubApiClient {
     }
 
     //get request to repository/issues
-    public String getRepoIssue() {
+    public JsonNode getRepoIssue() {
         String apiUrl = GITHUB_API_URL + ownerName + "/" + ownerRepos + ISSUES;
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))
@@ -56,7 +59,7 @@ public class GitHubApiClient {
         try {
             HttpResponse<String> response = httpClient.send(httpRequest,
                     HttpResponse.BodyHandlers.ofString());
-            return response.body();
+            return Json.parse(response.body());
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -64,7 +67,7 @@ public class GitHubApiClient {
     }
 
     //get request to repository/pulls
-    public String getRepoPulls() {
+    public JsonNode getRepoPulls() {
         String apiUrl = GITHUB_API_URL + ownerName + "/" + ownerRepos + PULLS;
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))
@@ -77,7 +80,7 @@ public class GitHubApiClient {
         try {
             HttpResponse<String> response = httpClient.send(httpRequest,
                     HttpResponse.BodyHandlers.ofString());
-            return response.body();
+            return Json.parse(response.body());
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
