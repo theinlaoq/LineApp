@@ -1,9 +1,9 @@
 package org.example;
 
-import java.util.Scanner;
 import java.io.PrintWriter;
 
 import org.apache.commons.cli.*;
+import org.example.viewLayer.GitHubApiClient;
 
 public class Main {
     private static final Option ARG_OWNER = new Option(
