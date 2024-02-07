@@ -7,7 +7,9 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name = "PullRequest")
 public class PullRequest{
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     @Column(name = "repo", nullable = false)
     private String repo;
     @Column(name = "base", nullable = false)
