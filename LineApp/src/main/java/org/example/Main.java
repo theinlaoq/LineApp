@@ -1,9 +1,9 @@
 package org.example;
 
-import java.util.Scanner;
 import java.io.PrintWriter;
 
 import org.apache.commons.cli.*;
+import org.example.service.GitHubService;
 
 public class Main {
     private static final Option ARG_OWNER = new Option(
@@ -30,6 +30,8 @@ public class Main {
             true,
             "Set the type of the request"
     );
+
+    private static GitHubService gitHubService = new GitHubService();
 
     private static void help(Options options) {
         HelpFormatter hf = new HelpFormatter();
@@ -76,11 +78,12 @@ public class Main {
             //call githubapiclient methods
             GitHubApiClient gitHubApiClient = new GitHubApiClient(owner, repo, key);
             if (type.equals("repo")) {
-                System.out.println(gitHubApiClient.getRepo());
+
             } else if (type.equals("issues")) {
                 System.out.println(gitHubApiClient.getRepoIssue());
             } else if (type.equals("pulls")) {
                 System.out.println(gitHubApiClient.getRepoPulls());
+                System.out.println(gitHubService.DbConnectPullRequest(gitHubApiClient));
             } else {
                 System.out.println("choose type repo, issues, pulls");
                 help(options);
