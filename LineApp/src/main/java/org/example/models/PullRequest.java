@@ -2,15 +2,14 @@ package org.example.models;
 
 import jakarta.persistence.*;
 
-import java.io.Serial;
 import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "PullRequest")
-public class PullRequest extends Model{
-    @Serial
-    private static final long serialVersionUID = 3460490108006801863L;
-
+public class PullRequest{
+    @Id
+    @Column(name = "id", nullable = false)
+    private long id;
     @Column(name = "repo", nullable = false)
     private String repo;
     @Column(name = "base", nullable = false)
@@ -18,53 +17,147 @@ public class PullRequest extends Model{
     @Column(name = "number", nullable = false)
     private int number;
     @Column(name = "author_id", nullable = false)
-    private int author_id;
+    private int authorId;
     @Column(name = "author", nullable = false)
     private String author;
     @Column(name = "created_at", nullable = false)
-    private ZonedDateTime created_at;
+    private ZonedDateTime createdAt;
     @Column(name = "updated_at", nullable = false)
-    private ZonedDateTime updated_at;
+    private ZonedDateTime updatedAt;
     @Column(name = "closed_at")
-    private ZonedDateTime closed_at;
+    private ZonedDateTime closedAt;
     @Column(name = "merged_at")
-    private ZonedDateTime merged_at;
+    private ZonedDateTime mergedAt;
     @Column(name = "title", nullable = false)
     private String title;
     @Column(name = "body")
     private String body;
     @Column(name = "review_comments_url")
-    private String review_comments_url;
+    private String reviewCommentsUrl;
     @Column(name = "commits_url")
-    private String commits_url;
-    @Column(name = "description", nullable = false)
+    private String commitsUrl;
+    @Column(name = "description")
     private String description;
     @Column(name = "state", nullable = false, length = 50)
     private String state;
 
     public PullRequest(){}
 
-    public PullRequest(String repo, String base, int number,
-                       int author_id, String author,
-                       ZonedDateTime created_at, ZonedDateTime updated_at,
-                       ZonedDateTime closed_at, ZonedDateTime merged_at,
-                       String title, String body, String review_comments_url,
-                       String commits_url, String description, String state) {
-        this.repo = repo;
-        this.base = base;
-        this.number = number;
-        this.author_id = author_id;
-        this.author = author;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.closed_at = closed_at;
-        this.merged_at = merged_at;
-        this.title = title;
-        this.body = body;
-        this.review_comments_url = review_comments_url;
-        this.commits_url = commits_url;
-        this.description = description;
-        this.state = state;
+    private PullRequest(PRBuilder prBuilder){
+        this.id = prBuilder.id;
+        this.repo = prBuilder.repo;
+        this.base = prBuilder.base;
+        this.number = prBuilder.number;
+        this.authorId = prBuilder.authorId;
+        this.author = prBuilder.author;
+        this.createdAt = prBuilder.createdAt;
+        this.updatedAt = prBuilder.updatedAt;
+        this.closedAt = prBuilder.closedAt;
+        this.mergedAt = prBuilder.mergedAt;
+        this.title = prBuilder.title;
+        this.body = prBuilder.body;
+        this.reviewCommentsUrl = prBuilder.reviewCommentsUrl;
+        this.commitsUrl = prBuilder.commitsUrl;
+        this.description = prBuilder.description;
+        this.state = prBuilder.state;
+    }
+
+    public static class PRBuilder{
+        private long id;
+        private String repo;
+        private String base;
+        private int number;
+        private int authorId;
+        private String author;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
+        private ZonedDateTime closedAt;
+        private ZonedDateTime mergedAt;
+        private String title;
+        private String body;
+        private String reviewCommentsUrl;
+        private String commitsUrl;
+        private String description;
+        private String state;
+
+        public PullRequest build(){
+            return new PullRequest(this);
+        }
+
+        public PRBuilder id(long id){
+            this.id = id;
+            return this;
+        }
+
+        public PRBuilder repo(String repo){
+            this.repo = repo;
+            return this;
+        }
+
+        public PRBuilder base(String base){
+            this.base = base;
+            return this;
+        }
+        public PRBuilder number(int number){
+            this.number = number;
+            return this;
+        }
+        public PRBuilder authorId(int authorId){
+            this.authorId = authorId;
+            return this;
+        }
+        public PRBuilder author(String author){
+            this.author = author;
+            return this;
+        }
+        public PRBuilder createdAt(ZonedDateTime createdAt){
+            this.createdAt = createdAt;
+            return this;
+        }
+        public PRBuilder updatedAt(ZonedDateTime updatedAt){
+            this.updatedAt = updatedAt;
+            return this;
+        }
+        public PRBuilder closedAt(ZonedDateTime closedAt){
+            this.closedAt = closedAt;
+            return this;
+        }
+        public PRBuilder mergedAt(ZonedDateTime mergedAt){
+            this.mergedAt = mergedAt;
+            return this;
+        }
+        public PRBuilder title(String title){
+            this.title = title;
+            return this;
+        }
+        public PRBuilder body(String body){
+            this.body = body;
+            return this;
+        }
+        public PRBuilder reviewCommentsUrl(String reviewCommentsUrl){
+            this.reviewCommentsUrl = reviewCommentsUrl;
+            return this;
+        }
+        public PRBuilder commitsUrl(String commitsUrl){
+            this.commitsUrl = commitsUrl;
+            return this;
+        }
+        public PRBuilder description(String description){
+            this.description = description;
+            return this;
+        }
+        public PRBuilder state(String state){
+            this.state = state;
+            return this;
+        }
+    }
+
+    public long getId(){
+        return id;
+    }
+
+    public void setId(long id){
+        this.id = id;
     }
 
     public String getRepo() {
@@ -79,28 +172,28 @@ public class PullRequest extends Model{
         return number;
     }
 
-    public int getAuthor_id() {
-        return author_id;
+    public int getAuthorId() {
+        return authorId;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public ZonedDateTime getCreated_at() {
-        return created_at;
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public ZonedDateTime getUpdated_at() {
-        return updated_at;
+    public ZonedDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public ZonedDateTime getClosed_at() {
-        return closed_at;
+    public ZonedDateTime getClosedAt() {
+        return closedAt;
     }
 
-    public ZonedDateTime getMerged_at() {
-        return merged_at;
+    public ZonedDateTime getMergedAt() {
+        return mergedAt;
     }
 
     public String getTitle() {
@@ -111,12 +204,12 @@ public class PullRequest extends Model{
         return body;
     }
 
-    public String getReview_comments_url() {
-        return review_comments_url;
+    public String getReviewCommentsUrl() {
+        return reviewCommentsUrl;
     }
 
-    public String getCommits_url() {
-        return commits_url;
+    public String getCommitsUrl() {
+        return commitsUrl;
     }
 
     public String getDescription() {
@@ -139,28 +232,28 @@ public class PullRequest extends Model{
         this.number = number;
     }
 
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     public void setAuthor(String author) {
         this.author = author;
     }
 
-    public void setCreated_at(ZonedDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setUpdated_at(ZonedDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public void setClosed_at(ZonedDateTime closed_at) {
-        this.closed_at = closed_at;
+    public void setClosedAt(ZonedDateTime closedAt) {
+        this.closedAt = closedAt;
     }
 
-    public void setMerged_at(ZonedDateTime merged_at) {
-        this.merged_at = merged_at;
+    public void setMergedAt(ZonedDateTime mergedAt) {
+        this.mergedAt = mergedAt;
     }
 
     public void setTitle(String title) {
@@ -171,12 +264,12 @@ public class PullRequest extends Model{
         this.body = body;
     }
 
-    public void setReview_comments_url(String review_comments_url) {
-        this.review_comments_url = review_comments_url;
+    public void setReviewCommentsUrl(String reviewCommentsUrl) {
+        this.reviewCommentsUrl = reviewCommentsUrl;
     }
 
-    public void setCommits_url(String commits_url) {
-        this.commits_url = commits_url;
+    public void setCommitsUrl(String commitsUrl) {
+        this.commitsUrl = commitsUrl;
     }
 
     public void setDescription(String description) {
@@ -193,16 +286,16 @@ public class PullRequest extends Model{
                 ", repo='" + repo + '\'' +
                 ", base='" + base + '\'' +
                 ", number=" + number +
-                ", author_id=" + author_id +
+                ", author_id=" + authorId +
                 ", author='" + author + '\'' +
-                ", created_at=" + created_at +
-                ", updated_at=" + updated_at +
-                ", closed_at=" + closed_at +
-                ", merged_at=" + merged_at +
+                ", created_at=" + createdAt +
+                ", updated_at=" + updatedAt +
+                ", closed_at=" + closedAt +
+                ", merged_at=" + mergedAt +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
-                ", review_comments_url='" + review_comments_url + '\'' +
-                ", commits_url='" + commits_url + '\'' +
+                ", review_comments_url='" + reviewCommentsUrl + '\'' +
+                ", commits_url='" + commitsUrl + '\'' +
                 ", description='" + description + '\'' +
                 ", state='" + state + '\'' +
                 '}';
